@@ -1,0 +1,426 @@
+[
+  {
+    "id": "gi-guard-root",
+    "name": "Guard",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-closed-guard",
+    "name": "Closed Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-open-guard",
+    "name": "Open Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-mount-root",
+    "name": "Mount",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-mount-armbar",
+    "name": "Armbar",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-mount-americana",
+    "name": "Americana",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-mount-ezekiel",
+    "name": "Ezekiel Choke",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-mount-cross-collar",
+    "name": "Cross Collar Choke",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-mount-to-back",
+    "name": "Transition to Back",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-mount-high-mount",
+    "name": "High Mount",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-mount-s-mount",
+    "name": "S-Mount",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-side-control-root",
+    "name": "Side Control",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-side-kimura",
+    "name": "Kimura",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-side-americana",
+    "name": "Americana",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-side-paper-cutter",
+    "name": "Paper Cutter Choke",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-side-baseball-choke",
+    "name": "Baseball Choke",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-side-to-mount",
+    "name": "Transition to Mount",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-side-north-south",
+    "name": "North-South Position",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-north-south-choke",
+    "name": "North-South Choke",
+    "notes": "",
+    "parentID": "gi-side-north-south",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-north-south-kimura",
+    "name": "Kimura from North-South",
+    "notes": "",
+    "parentID": "gi-side-north-south",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-back-control-root",
+    "name": "Back Control",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-back-rnc",
+    "name": "Rear Naked Choke",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-back-bow-arrow",
+    "name": "Bow and Arrow Choke",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-back-collar-choke",
+    "name": "Collar Choke",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-back-armbar",
+    "name": "Armbar from Back",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-back-crucifix",
+    "name": "Crucifix",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-back-body-triangle",
+    "name": "Body Triangle",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "nogi-guard-root",
+    "name": "Guard",
+    "notes": "",
+    "parentID": null,
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-closed-guard",
+    "name": "Closed Guard",
+    "notes": "",
+    "parentID": "nogi-guard-root",
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-butterfly-guard",
+    "name": "Butterfly Guard",
+    "notes": "",
+    "parentID": "nogi-guard-root",
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-mount-root",
+    "name": "Mount",
+    "notes": "",
+    "parentID": null,
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-mount-armbar",
+    "name": "Armbar",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-mount-americana",
+    "name": "Americana",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-mount-arm-triangle",
+    "name": "Arm Triangle",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 2
+  },
+  {
+    "id": "nogi-mount-gift-wrap",
+    "name": "Gift Wrap to Back",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 3
+  },
+  {
+    "id": "nogi-mount-s-mount",
+    "name": "S-Mount Transition",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 4
+  },
+  {
+    "id": "nogi-mount-high-mount",
+    "name": "High Mount",
+    "notes": "",
+    "parentID": "nogi-mount-root",
+    "mode": "nogi",
+    "sortOrder": 5
+  },
+  {
+    "id": "nogi-side-control-root",
+    "name": "Side Control",
+    "notes": "",
+    "parentID": null,
+    "mode": "nogi",
+    "sortOrder": 2
+  },
+  {
+    "id": "nogi-side-kimura",
+    "name": "Kimura",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-side-americana",
+    "name": "Americana",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-side-darce",
+    "name": "Darce Choke",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 2
+  },
+  {
+    "id": "nogi-side-arm-triangle",
+    "name": "Arm Triangle",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 3
+  },
+  {
+    "id": "nogi-side-to-mount",
+    "name": "Transition to Mount",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 4
+  },
+  {
+    "id": "nogi-side-north-south",
+    "name": "North-South Position",
+    "notes": "",
+    "parentID": "nogi-side-control-root",
+    "mode": "nogi",
+    "sortOrder": 5
+  },
+  {
+    "id": "nogi-north-south-kimura",
+    "name": "Kimura from North-South",
+    "notes": "",
+    "parentID": "nogi-side-north-south",
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-north-south-darce",
+    "name": "Darce from North-South",
+    "notes": "",
+    "parentID": "nogi-side-north-south",
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-back-control-root",
+    "name": "Back Control",
+    "notes": "",
+    "parentID": null,
+    "mode": "nogi",
+    "sortOrder": 3
+  },
+  {
+    "id": "nogi-back-rnc",
+    "name": "Rear Naked Choke",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 0
+  },
+  {
+    "id": "nogi-back-short-choke",
+    "name": "Short Choke",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 1
+  },
+  {
+    "id": "nogi-back-armbar",
+    "name": "Armbar from Back",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 2
+  },
+  {
+    "id": "nogi-back-body-triangle",
+    "name": "Body Triangle",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 3
+  },
+  {
+    "id": "nogi-back-crucifix",
+    "name": "Crucifix",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 4
+  },
+  {
+    "id": "nogi-back-rear-triangle",
+    "name": "Rear Triangle",
+    "notes": "",
+    "parentID": "nogi-back-control-root",
+    "mode": "nogi",
+    "sortOrder": 5
+  }
+]
