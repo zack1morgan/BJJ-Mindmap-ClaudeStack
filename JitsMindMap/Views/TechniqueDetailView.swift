@@ -7,23 +7,59 @@ struct TechniqueDetailView: View {
 
     @State private var name: String
     @State private var notes: String
+    @State private var notesHTML: String?
+    @State private var mediaItems: [MediaItem]
+    @State private var links: [String]
 
     init(technique: Technique, viewModel: TechniqueViewModel) {
         self.technique = technique
         self.viewModel = viewModel
         _name = State(initialValue: technique.name)
         _notes = State(initialValue: technique.notes)
+        _notesHTML = State(initialValue: technique.notesHTML)
+        _mediaItems = State(initialValue: technique.mediaItems)
+        _links = State(initialValue: technique.links)
     }
 
     var body: some View {
-        Form {
-            Section(header: Text("Technique Name")) {
-                TextField("Name", text: $name)
-            }
+        ScrollView {
+            VStack(spacing: 20) {
+                // Technique Name Section
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Technique Name")
+                        .font(.headline)
 
-            Section(header: Text("Notes")) {
-                TextEditor(text: $notes)
-                    .frame(minHeight: 200)
+                    TextField("Name", text: $name)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                .padding(.horizontal)
+                .padding(.top)
+
+                Divider()
+
+                // Rich Text Notes Section
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Notes")
+                        .font(.headline)
+                        .padding(.horizontal)
+
+                    RichTextEditor(text: $notes, htmlText: $notesHTML)
+                        .padding(.horizontal)
+                }
+
+                Divider()
+
+                // Links Section
+                LinksSectionView(links: $links)
+                    .padding(.horizontal)
+
+                Divider()
+
+                // Media Gallery Section
+                MediaGalleryView(mediaItems: $mediaItems)
+                    .padding(.horizontal)
+
+                Spacer(minLength: 40)
             }
         }
         .navigationTitle("Edit Technique")
@@ -39,7 +75,14 @@ struct TechniqueDetailView: View {
     }
 
     private func saveChanges() {
-        viewModel.updateTechnique(technique, name: name, notes: notes)
+        viewModel.updateTechnique(
+            technique,
+            name: name,
+            notes: notes,
+            notesHTML: notesHTML,
+            mediaItems: mediaItems,
+            links: links
+        )
         dismiss()
     }
 }

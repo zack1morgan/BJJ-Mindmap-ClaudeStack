@@ -7,7 +7,7 @@ struct JitsMindMapApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Technique.self)
+        .modelContainer(for: [Technique.self, MediaItem.self])
     }
 }
 

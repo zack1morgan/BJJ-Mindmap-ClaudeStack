@@ -56,9 +56,19 @@ class TechniqueViewModel {
         try? modelContext.save()
     }
 
-    func updateTechnique(_ technique: Technique, name: String, notes: String) {
+    func updateTechnique(
+        _ technique: Technique,
+        name: String,
+        notes: String,
+        notesHTML: String? = nil,
+        mediaItems: [MediaItem] = [],
+        links: [String] = []
+    ) {
         technique.name = name
         technique.notes = notes
+        technique.notesHTML = notesHTML
+        technique.mediaItems = mediaItems
+        technique.links = links
         technique.modifiedDate = Date()
         try? modelContext.save()
     }
