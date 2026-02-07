@@ -16,6 +16,70 @@
     "sortOrder": 0
   },
   {
+    "id": "gi-closed-triangle",
+    "name": "Triangle Choke",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-closed-armbar",
+    "name": "Armbar from Guard",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-closed-kimura",
+    "name": "Kimura from Guard",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-closed-omoplata",
+    "name": "Omoplata",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-closed-guillotine",
+    "name": "Guillotine from Guard",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-closed-hip-bump",
+    "name": "Hip Bump Sweep",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-closed-scissor",
+    "name": "Scissor Sweep",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-closed-flower",
+    "name": "Flower Sweep",
+    "notes": "",
+    "parentID": "gi-closed-guard",
+    "mode": "gi",
+    "sortOrder": 7
+  },
+  {
     "id": "gi-open-guard",
     "name": "Open Guard",
     "notes": "",
@@ -24,12 +88,380 @@
     "sortOrder": 1
   },
   {
+    "id": "gi-spider-guard",
+    "name": "Spider Guard",
+    "notes": "",
+    "parentID": "gi-open-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-spider-sweep",
+    "name": "Spider Guard Sweep",
+    "notes": "",
+    "parentID": "gi-spider-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-spider-triangle",
+    "name": "Triangle from Spider",
+    "notes": "",
+    "parentID": "gi-spider-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-spider-omoplata",
+    "name": "Omoplata from Spider",
+    "notes": "",
+    "parentID": "gi-spider-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-spider-bicep-slicer",
+    "name": "Bicep Slicer",
+    "notes": "",
+    "parentID": "gi-spider-guard",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-lasso-guard",
+    "name": "Lasso Guard",
+    "notes": "",
+    "parentID": "gi-open-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-lasso-sweep",
+    "name": "Lasso Sweep",
+    "notes": "",
+    "parentID": "gi-lasso-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-lasso-omoplata",
+    "name": "Omoplata from Lasso",
+    "notes": "",
+    "parentID": "gi-lasso-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-lasso-triangle",
+    "name": "Triangle from Lasso",
+    "notes": "",
+    "parentID": "gi-lasso-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-dlr-guard",
+    "name": "De La Riva Guard",
+    "notes": "",
+    "parentID": "gi-open-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-dlr-sweep",
+    "name": "DLR Sweep",
+    "notes": "",
+    "parentID": "gi-dlr-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-dlr-berimbolo",
+    "name": "Berimbolo",
+    "notes": "",
+    "parentID": "gi-dlr-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-dlr-back-take",
+    "name": "Back Take from DLR",
+    "notes": "",
+    "parentID": "gi-dlr-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-dlr-baby-bolo",
+    "name": "Baby Bolo",
+    "notes": "",
+    "parentID": "gi-dlr-guard",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-rdlr-guard",
+    "name": "Reverse De La Riva",
+    "notes": "",
+    "parentID": "gi-open-guard",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-rdlr-sweep",
+    "name": "RDLR Sweep",
+    "notes": "",
+    "parentID": "gi-rdlr-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-rdlr-kiss-dragon",
+    "name": "Kiss of the Dragon",
+    "notes": "",
+    "parentID": "gi-rdlr-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-rdlr-crab-ride",
+    "name": "Crab Ride",
+    "notes": "",
+    "parentID": "gi-rdlr-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-butterfly-guard",
+    "name": "Butterfly Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-butterfly-sweep",
+    "name": "Butterfly Sweep",
+    "notes": "",
+    "parentID": "gi-butterfly-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-butterfly-arm-drag",
+    "name": "Arm Drag",
+    "notes": "",
+    "parentID": "gi-butterfly-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-butterfly-guillotine",
+    "name": "Guillotine from Butterfly",
+    "notes": "",
+    "parentID": "gi-butterfly-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-butterfly-hook-sweep",
+    "name": "Hook Sweep",
+    "notes": "",
+    "parentID": "gi-butterfly-guard",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-x-guard",
+    "name": "X-Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-x-guard-sweep",
+    "name": "X-Guard Sweep",
+    "notes": "",
+    "parentID": "gi-x-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-x-guard-technical-standup",
+    "name": "Technical Standup Sweep",
+    "notes": "",
+    "parentID": "gi-x-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-x-guard-to-slx",
+    "name": "Transition to Single Leg X",
+    "notes": "",
+    "parentID": "gi-x-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-slx-guard",
+    "name": "Single Leg X",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-slx-sweep",
+    "name": "Single Leg X Sweep",
+    "notes": "",
+    "parentID": "gi-slx-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-slx-to-x",
+    "name": "Transition to X-Guard",
+    "notes": "",
+    "parentID": "gi-slx-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-slx-to-back",
+    "name": "Transition to Back",
+    "notes": "",
+    "parentID": "gi-slx-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-5050-guard",
+    "name": "50/50 Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-5050-sweeps",
+    "name": "Sweeps from 50/50",
+    "notes": "",
+    "parentID": "gi-5050-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-5050-calf-slicer",
+    "name": "Calf Slicer",
+    "notes": "",
+    "parentID": "gi-5050-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-5050-ankle-lock",
+    "name": "Straight Ankle Lock",
+    "notes": "",
+    "parentID": "gi-5050-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-worm-guard",
+    "name": "Worm Guard",
+    "notes": "",
+    "parentID": "gi-guard-root",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-worm-sweep",
+    "name": "Worm Guard Sweep",
+    "notes": "",
+    "parentID": "gi-worm-guard",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-worm-triangle",
+    "name": "Triangle from Worm",
+    "notes": "",
+    "parentID": "gi-worm-guard",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-worm-back-take",
+    "name": "Back Take",
+    "notes": "",
+    "parentID": "gi-worm-guard",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-half-guard-root",
+    "name": "Half Guard",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-half-underhook",
+    "name": "Underhook Half Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-half-lockdown",
+    "name": "Lockdown Half Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-half-deep",
+    "name": "Deep Half Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-half-knee-shield",
+    "name": "Knee Shield/Z-Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-half-93-guard",
+    "name": "93 Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-half-reverse",
+    "name": "Reverse Half Guard",
+    "notes": "",
+    "parentID": "gi-half-guard-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
     "id": "gi-mount-root",
     "name": "Mount",
     "notes": "",
     "parentID": null,
     "mode": "gi",
-    "sortOrder": 1
+    "sortOrder": 2
   },
   {
     "id": "gi-mount-armbar",
@@ -64,12 +496,52 @@
     "sortOrder": 3
   },
   {
+    "id": "gi-mount-bread-cutter",
+    "name": "Bread Cutter Choke",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-mount-loop-choke",
+    "name": "Loop Choke",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-mount-gift-wrap",
+    "name": "Gift Wrap",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-mount-head-arm-choke",
+    "name": "Head and Arm Choke",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 7
+  },
+  {
     "id": "gi-mount-to-back",
     "name": "Transition to Back",
     "notes": "",
     "parentID": "gi-mount-root",
     "mode": "gi",
-    "sortOrder": 4
+    "sortOrder": 8
+  },
+  {
+    "id": "gi-mount-to-kob",
+    "name": "Transition to Knee on Belly",
+    "notes": "",
+    "parentID": "gi-mount-root",
+    "mode": "gi",
+    "sortOrder": 9
   },
   {
     "id": "gi-mount-high-mount",
@@ -77,7 +549,7 @@
     "notes": "",
     "parentID": "gi-mount-root",
     "mode": "gi",
-    "sortOrder": 5
+    "sortOrder": 10
   },
   {
     "id": "gi-mount-s-mount",
@@ -85,7 +557,47 @@
     "notes": "",
     "parentID": "gi-mount-root",
     "mode": "gi",
-    "sortOrder": 6
+    "sortOrder": 11
+  },
+  {
+    "id": "gi-kob-root",
+    "name": "Knee on Belly",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-kob-armbar",
+    "name": "Armbar from KOB",
+    "notes": "",
+    "parentID": "gi-kob-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-kob-baseball-choke",
+    "name": "Baseball Bat Choke",
+    "notes": "",
+    "parentID": "gi-kob-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-kob-to-mount",
+    "name": "Transition to Mount",
+    "notes": "",
+    "parentID": "gi-kob-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-kob-to-side",
+    "name": "Transition to Side Control",
+    "notes": "",
+    "parentID": "gi-kob-root",
+    "mode": "gi",
+    "sortOrder": 3
   },
   {
     "id": "gi-side-control-root",
@@ -93,7 +605,7 @@
     "notes": "",
     "parentID": null,
     "mode": "gi",
-    "sortOrder": 2
+    "sortOrder": 4
   },
   {
     "id": "gi-side-kimura",
@@ -128,12 +640,60 @@
     "sortOrder": 3
   },
   {
+    "id": "gi-side-bread-cutter",
+    "name": "Bread Cutter Choke",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-side-straight-armlock",
+    "name": "Straight Armlock",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-side-farside-armbar",
+    "name": "Farside Armbar",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-side-head-arm-choke",
+    "name": "Head and Arm Choke",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 7
+  },
+  {
+    "id": "gi-side-spinning-armbar",
+    "name": "Spinning Armbar",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 8
+  },
+  {
     "id": "gi-side-to-mount",
     "name": "Transition to Mount",
     "notes": "",
     "parentID": "gi-side-control-root",
     "mode": "gi",
-    "sortOrder": 4
+    "sortOrder": 9
+  },
+  {
+    "id": "gi-side-to-kob",
+    "name": "Transition to Knee on Belly",
+    "notes": "",
+    "parentID": "gi-side-control-root",
+    "mode": "gi",
+    "sortOrder": 10
   },
   {
     "id": "gi-side-north-south",
@@ -141,7 +701,7 @@
     "notes": "",
     "parentID": "gi-side-control-root",
     "mode": "gi",
-    "sortOrder": 5
+    "sortOrder": 11
   },
   {
     "id": "gi-north-south-choke",
@@ -165,7 +725,7 @@
     "notes": "",
     "parentID": null,
     "mode": "gi",
-    "sortOrder": 3
+    "sortOrder": 5
   },
   {
     "id": "gi-back-rnc",
@@ -192,12 +752,44 @@
     "sortOrder": 2
   },
   {
+    "id": "gi-back-clock-choke",
+    "name": "Clock Choke",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-back-short-choke",
+    "name": "Short Choke",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 4
+  },
+  {
+    "id": "gi-back-lapel-chokes",
+    "name": "Lapel Chokes",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 5
+  },
+  {
+    "id": "gi-back-straight-jacket",
+    "name": "Straight Jacket",
+    "notes": "",
+    "parentID": "gi-back-control-root",
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
     "id": "gi-back-armbar",
     "name": "Armbar from Back",
     "notes": "",
     "parentID": "gi-back-control-root",
     "mode": "gi",
-    "sortOrder": 3
+    "sortOrder": 7
   },
   {
     "id": "gi-back-crucifix",
@@ -205,7 +797,7 @@
     "notes": "",
     "parentID": "gi-back-control-root",
     "mode": "gi",
-    "sortOrder": 4
+    "sortOrder": 8
   },
   {
     "id": "gi-back-body-triangle",
@@ -213,7 +805,55 @@
     "notes": "",
     "parentID": "gi-back-control-root",
     "mode": "gi",
-    "sortOrder": 5
+    "sortOrder": 9
+  },
+  {
+    "id": "gi-turtle-root",
+    "name": "Turtle",
+    "notes": "",
+    "parentID": null,
+    "mode": "gi",
+    "sortOrder": 6
+  },
+  {
+    "id": "gi-turtle-rolling-back-take",
+    "name": "Rolling Back Takes",
+    "notes": "",
+    "parentID": "gi-turtle-root",
+    "mode": "gi",
+    "sortOrder": 0
+  },
+  {
+    "id": "gi-turtle-clock-choke",
+    "name": "Clock Choke",
+    "notes": "",
+    "parentID": "gi-turtle-root",
+    "mode": "gi",
+    "sortOrder": 1
+  },
+  {
+    "id": "gi-turtle-crucifix",
+    "name": "Crucifix from Turtle",
+    "notes": "",
+    "parentID": "gi-turtle-root",
+    "mode": "gi",
+    "sortOrder": 2
+  },
+  {
+    "id": "gi-turtle-seatbelt",
+    "name": "Seatbelt Control",
+    "notes": "",
+    "parentID": "gi-turtle-root",
+    "mode": "gi",
+    "sortOrder": 3
+  },
+  {
+    "id": "gi-turtle-granby",
+    "name": "Granby Roll",
+    "notes": "",
+    "parentID": "gi-turtle-root",
+    "mode": "gi",
+    "sortOrder": 4
   },
   {
     "id": "nogi-guard-root",
