@@ -11,6 +11,8 @@ struct TreeView: View {
     @State private var showingDeleteAlert = false
     @State private var techniqueToDelete: Technique?
     @State private var documentPickerCoordinator: DocumentPickerCoordinator?
+    @State private var showingFavorites = false
+    @State private var selectedModesForAdd: Set<BJJMode> = [.gi]
 
     init(modelContext: ModelContext) {
         _viewModel = State(initialValue: TechniqueViewModel(modelContext: modelContext))
@@ -19,7 +21,10 @@ struct TreeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                if rootTechniques.isEmpty {
+                // Show search results or tree view
+                if viewModel.isSearching && !viewModel.searchText.isEmpty {
+                    searchResultsView
+                } else if rootTechniques.isEmpty {
                     emptyStateView
                 } else {
                     ScrollView {
@@ -38,6 +43,7 @@ struct TreeView: View {
                         Spacer()
                         Button(action: {
                             selectedTechniqueForChild = nil
+                            selectedModesForAdd = [.gi]  // Reset to default
                             showingAddSheet = true
                         }) {
                             Image(systemName: "plus")
@@ -55,13 +61,22 @@ struct TreeView: View {
             }
             .navigationTitle("JitsMindMap")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showingFavorites = true
+                    } label: {
+                        Image(systemName: "star")
+                    }
+                }
+
                 ToolbarItem(placement: .principal) {
                     Picker("Mode", selection: $viewModel.selectedMode) {
-                        Text("Gi").tag("gi")
-                        Text("NoGi").tag("nogi")
+                        Text("Gi").tag(BJJMode.gi)
+                        Text("No-Gi").tag(BJJMode.noGi)
+                        Text("All").tag(BJJMode.combined)
                     }
                     .pickerStyle(.segmented)
-                    .frame(width: 150)
+                    .frame(width: 200)
                 }
 
                 ToolbarItem(placement: .topBarTrailing) {
@@ -85,6 +100,9 @@ struct TreeView: View {
             .sheet(isPresented: $showingAddSheet) {
                 addTechniqueSheet
             }
+            .sheet(isPresented: $showingFavorites) {
+                FavoritesView(viewModel: viewModel, mode: viewModel.selectedMode)
+            }
             .alert("Delete Technique", isPresented: $showingDeleteAlert, presenting: techniqueToDelete) { technique in
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
@@ -93,6 +111,12 @@ struct TreeView: View {
             } message: { technique in
                 Text("Are you sure you want to delete '\(technique.name)' and all its child techniques?")
             }
+            .searchable(
+                text: $viewModel.searchText,
+                isPresented: $viewModel.isSearching,
+                placement: .navigationBarDrawer(displayMode: .always),
+                prompt: "Search techniques"
+            )
         }
         .onAppear {
             viewModel.modelContext = modelContext
@@ -101,7 +125,14 @@ struct TreeView: View {
     }
 
     private var rootTechniques: [Technique] {
-        viewModel.fetchRootTechniques(for: viewModel.selectedMode)
+        if viewModel.selectedMode == .combined {
+            // In combined mode, show techniques from both Gi and NoGi
+            let giTechniques = viewModel.fetchRootTechniques(for: .gi)
+            let noGiTechniques = viewModel.fetchRootTechniques(for: .noGi)
+            return (giTechniques + noGiTechniques).sorted { $0.name < $1.name }
+        } else {
+            return viewModel.fetchRootTechniques(for: viewModel.selectedMode)
+        }
     }
 
     private var emptyStateView: some View {
@@ -115,11 +146,59 @@ struct TreeView: View {
         }
     }
 
+    private var searchResultsView: some View {
+        let results = viewModel.searchTechniques(
+            query: viewModel.searchText,
+            mode: viewModel.selectedMode
+        )
+
+        return List(results, id: \.id) { technique in
+            NavigationLink(destination: TechniqueDetailView(technique: technique, viewModel: viewModel)) {
+                HStack {
+                    Text(technique.name)
+                    Spacer()
+                    if technique.isFavorite(in: viewModel.selectedMode) {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption)
+                    }
+                }
+            }
+        }
+        .overlay {
+            if results.isEmpty {
+                ContentUnavailableView.search(text: viewModel.searchText)
+            }
+        }
+    }
+
     private var addTechniqueSheet: some View {
         NavigationStack {
             Form {
                 Section {
                     TextField("Technique Name", text: $newTechniqueName)
+                }
+
+                // Show mode selection only in Combined mode
+                if viewModel.selectedMode == .combined {
+                    Section(header: Text("Add to Mode")) {
+                        ForEach([BJJMode.gi, BJJMode.noGi], id: \.self) { mode in
+                            Button(action: {
+                                if selectedModesForAdd.contains(mode) {
+                                    selectedModesForAdd.remove(mode)
+                                } else {
+                                    selectedModesForAdd.insert(mode)
+                                }
+                            }) {
+                                HStack {
+                                    Image(systemName: selectedModesForAdd.contains(mode) ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(selectedModesForAdd.contains(mode) ? .blue : .gray)
+                                    Text(mode.displayName)
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                        }
+                    }
                 }
 
                 if let parent = selectedTechniqueForChild {
@@ -164,16 +243,21 @@ struct TreeView: View {
                         depth: depth,
                         hasChildren: hasChildren,
                         isExpanded: isExpanded,
+                        currentMode: viewModel.selectedMode,
                         onToggleExpand: {
                             viewModel.toggleExpanded(technique.id)
                         },
                         onAddChild: {
                             selectedTechniqueForChild = technique
+                            selectedModesForAdd = [.gi]  // Reset to default
                             showingAddSheet = true
                         },
                         onDelete: {
                             techniqueToDelete = technique
                             showingDeleteAlert = true
+                        },
+                        onHide: {
+                            viewModel.hideTechnique(technique, in: viewModel.selectedMode)
                         },
                         onMoveUp: {
                             viewModel.moveTechniqueUp(technique)
@@ -201,11 +285,22 @@ struct TreeView: View {
         let trimmedName = newTechniqueName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else { return }
 
-        viewModel.addTechnique(
-            name: trimmedName,
-            parentID: selectedTechniqueForChild?.id,
-            mode: viewModel.selectedMode
-        )
+        if viewModel.selectedMode == .combined {
+            // Add to selected modes (Gi, NoGi, or both)
+            guard !selectedModesForAdd.isEmpty else { return }
+            viewModel.addTechnique(
+                name: trimmedName,
+                parentID: selectedTechniqueForChild?.id,
+                modes: selectedModesForAdd
+            )
+        } else {
+            // Add to current mode
+            viewModel.addTechnique(
+                name: trimmedName,
+                parentID: selectedTechniqueForChild?.id,
+                mode: viewModel.selectedMode
+            )
+        }
 
         if let parent = selectedTechniqueForChild {
             viewModel.expandedNodes.insert(parent.id)
@@ -213,6 +308,7 @@ struct TreeView: View {
 
         newTechniqueName = ""
         selectedTechniqueForChild = nil
+        selectedModesForAdd = [.gi]  // Reset to default
         showingAddSheet = false
     }
 

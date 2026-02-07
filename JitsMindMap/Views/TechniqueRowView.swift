@@ -5,9 +5,11 @@ struct TechniqueRowView: View {
     let depth: Int
     let hasChildren: Bool
     let isExpanded: Bool
+    let currentMode: BJJMode
     let onToggleExpand: () -> Void
     let onAddChild: () -> Void
     let onDelete: () -> Void
+    let onHide: () -> Void
     let onMoveUp: () -> Void
     let onMoveDown: () -> Void
     let canMoveUp: Bool
@@ -38,6 +40,13 @@ struct TechniqueRowView: View {
             Text(technique.name)
                 .font(.body)
 
+            // Star indicator if favorited
+            if technique.isFavorite(in: currentMode) {
+                Image(systemName: "star.fill")
+                    .font(.caption)
+                    .foregroundColor(.yellow)
+            }
+
             Spacer()
         }
         .contentShape(Rectangle())
@@ -46,6 +55,15 @@ struct TechniqueRowView: View {
                 onAddChild()
             } label: {
                 Label("Add Child Technique", systemImage: "plus")
+            }
+
+            // Only show hide option in non-combined modes
+            if currentMode != .combined {
+                Button {
+                    onHide()
+                } label: {
+                    Label("Hide \(technique.name)", systemImage: "eye.slash")
+                }
             }
 
             Divider()

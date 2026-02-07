@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 struct TechniqueDetailView: View {
     @Environment(\.dismiss) private var dismiss
@@ -65,6 +66,13 @@ struct TechniqueDetailView: View {
         .navigationTitle("Edit Technique")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: toggleFavorite) {
+                    Image(systemName: technique.isFavorite(in: viewModel.selectedMode) ? "star.fill" : "star")
+                        .foregroundColor(technique.isFavorite(in: viewModel.selectedMode) ? .yellow : .gray)
+                }
+            }
+
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     saveChanges()
@@ -84,5 +92,12 @@ struct TechniqueDetailView: View {
             links: links
         )
         dismiss()
+    }
+
+    private func toggleFavorite() {
+        let currentMode = viewModel.selectedMode
+        let isFav = technique.isFavorite(in: currentMode)
+        technique.setFavorite(!isFav, in: currentMode)
+        try? viewModel.modelContext.save()
     }
 }
