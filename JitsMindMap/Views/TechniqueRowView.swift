@@ -48,6 +48,14 @@ struct TechniqueRowView: View {
             }
 
             Spacer()
+
+            // Drag handle (only in non-combined modes)
+            if currentMode != .combined {
+                Image(systemName: "line.3.horizontal")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .padding(.trailing, 4)
+            }
         }
         .contentShape(Rectangle())
         .contextMenu {

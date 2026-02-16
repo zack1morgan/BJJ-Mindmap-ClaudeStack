@@ -43,7 +43,14 @@ final class MediaItem {
 }
 
 @Model
-final class Technique {
+final class Technique: Hashable {
+    static func == (lhs: Technique, rhs: Technique) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     var id: UUID
     var name: String
     var notes: String

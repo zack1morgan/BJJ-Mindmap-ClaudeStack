@@ -13,6 +13,7 @@ struct TreeView: View {
     @State private var documentPickerCoordinator: DocumentPickerCoordinator?
     @State private var showingFavorites = false
     @State private var selectedModesForAdd: Set<BJJMode> = [.gi]
+    @State private var draggedTechnique: Technique?
 
     init(modelContext: ModelContext) {
         _viewModel = State(initialValue: TechniqueViewModel(modelContext: modelContext))
@@ -117,6 +118,9 @@ struct TreeView: View {
                 placement: .navigationBarDrawer(displayMode: .always),
                 prompt: "Search techniques"
             )
+            .navigationDestination(for: Technique.self) { technique in
+                TechniqueDetailView(technique: technique, viewModel: viewModel)
+            }
         }
         .onAppear {
             viewModel.modelContext = modelContext
@@ -126,13 +130,40 @@ struct TreeView: View {
 
     private var rootTechniques: [Technique] {
         if viewModel.selectedMode == .combined {
-            // In combined mode, show techniques from both Gi and NoGi
+            // In combined mode, deduplicate techniques from both Gi and NoGi
             let giTechniques = viewModel.fetchRootTechniques(for: .gi)
             let noGiTechniques = viewModel.fetchRootTechniques(for: .noGi)
-            return (giTechniques + noGiTechniques).sorted { $0.name < $1.name }
+
+            return deduplicateTechniques(giTechniques + noGiTechniques)
         } else {
             return viewModel.fetchRootTechniques(for: viewModel.selectedMode)
         }
+    }
+
+    /// Deduplicates techniques by normalized name (case-insensitive, trimmed)
+    /// When duplicates exist, prefers the Gi version
+    private func deduplicateTechniques(_ techniques: [Technique]) -> [Technique] {
+        var seen: Set<String> = []
+        var deduplicated: [Technique] = []
+
+        // Sort to ensure Gi techniques come before NoGi (for preference)
+        let sorted = techniques.sorted { t1, t2 in
+            if t1.mode == t2.mode {
+                return t1.name < t2.name
+            }
+            return t1.mode == "gi"  // Gi comes first
+        }
+
+        for technique in sorted {
+            let normalizedName = technique.name.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+
+            if !seen.contains(normalizedName) {
+                seen.insert(normalizedName)
+                deduplicated.append(technique)
+            }
+        }
+
+        return deduplicated.sorted { $0.name < $1.name }
     }
 
     private var emptyStateView: some View {
@@ -230,14 +261,16 @@ struct TreeView: View {
     }
 
     private func techniqueTree(_ technique: Technique, depth: Int, siblings: [Technique]) -> AnyView {
-        let children = viewModel.fetchChildren(of: technique.id)
+        let allChildren = viewModel.fetchChildren(of: technique.id)
+        // Deduplicate children in Combined mode
+        let children = viewModel.selectedMode == .combined ? deduplicateTechniques(allChildren) : allChildren
         let hasChildren = !children.isEmpty
         let isExpanded = viewModel.isExpanded(technique.id)
         let siblingIndex = siblings.firstIndex(where: { $0.id == technique.id }) ?? 0
 
         return AnyView(
             Group {
-                NavigationLink(destination: TechniqueDetailView(technique: technique, viewModel: viewModel)) {
+                NavigationLink(value: technique) {
                     TechniqueRowView(
                         technique: technique,
                         depth: depth,
@@ -271,6 +304,51 @@ struct TreeView: View {
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal, 16)
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                        .onEnded { _ in
+                            // Start drag after long press
+                            if viewModel.selectedMode != .combined {
+                                self.draggedTechnique = technique
+                            }
+                        }
+                )
+                .onDrag {
+                    // Only enable drag in Gi or No-Gi mode, not Combined
+                    guard viewModel.selectedMode != .combined else {
+                        return NSItemProvider()
+                    }
+
+                    self.draggedTechnique = technique
+                    let itemProvider = NSItemProvider()
+                    itemProvider.suggestedName = technique.id.uuidString
+                    itemProvider.registerDataRepresentation(forTypeIdentifier: UTType.text.identifier, visibility: .all) { completion in
+                        let data = technique.id.uuidString.data(using: .utf8)
+                        completion(data, nil)
+                        return nil
+                    }
+                    return itemProvider
+                }
+                .onDrop(of: [.text], delegate: TechniqueDropDelegate(
+                    technique: technique,
+                    siblings: siblings,
+                    viewModel: viewModel,
+                    draggedTechnique: $draggedTechnique,
+                    currentMode: viewModel.selectedMode
+                ))
+
+                // Drop zone to add as first child (when expanded or to expand and add)
+                if isExpanded || viewModel.selectedMode != .combined {
+                    Color.clear
+                        .frame(height: isExpanded ? 20 : 0)
+                        .onDrop(of: [.text], delegate: TechniqueChildDropDelegate(
+                            parentTechnique: technique,
+                            viewModel: viewModel,
+                            draggedTechnique: $draggedTechnique,
+                            currentMode: viewModel.selectedMode,
+                            insertAtBeginning: true
+                        ))
+                }
 
                 if hasChildren && isExpanded {
                     ForEach(children, id: \.id) { child in
@@ -366,5 +444,133 @@ class DocumentPickerCoordinator: NSObject, UIDocumentPickerDelegate {
         } catch {
             print("Import error: \(error)")
         }
+    }
+}
+
+// MARK: - Drag and Drop Delegate
+
+struct TechniqueDropDelegate: DropDelegate {
+    let technique: Technique
+    let siblings: [Technique]
+    let viewModel: TechniqueViewModel
+    @Binding var draggedTechnique: Technique?
+    let currentMode: BJJMode
+
+    func validateDrop(info: DropInfo) -> Bool {
+        // Don't allow drops in Combined mode
+        guard currentMode != .combined else { return false }
+
+        // Make sure we have a dragged technique
+        guard let draggedTechnique = draggedTechnique else { return false }
+
+        // Don't drop onto itself
+        guard draggedTechnique.id != technique.id else { return false }
+
+        // Validate using viewModel's validation
+        return viewModel.canDropTechnique(draggedTechnique, onParent: technique.parentID)
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        guard let draggedTechnique = draggedTechnique else { return false }
+        guard currentMode != .combined else { return false }
+        guard validateDrop(info: info) else { return false }
+
+        // Find the current index of the target technique
+        guard let targetIndex = siblings.firstIndex(where: { $0.id == technique.id }) else {
+            return false
+        }
+
+        // Find the current index of the dragged technique in siblings (if exists)
+        let draggedIndex = siblings.firstIndex(where: { $0.id == draggedTechnique.id })
+
+        // Determine final destination index
+        var destinationIndex: Int
+
+        // If dragging within same parent
+        if draggedTechnique.parentID == technique.parentID, let draggedIdx = draggedIndex {
+            // If dragging down (from earlier to later position)
+            if draggedIdx < targetIndex {
+                destinationIndex = targetIndex  // Will go to target's current position
+            } else {
+                // If dragging up (from later to earlier position)
+                destinationIndex = targetIndex + 1  // Will go after target
+            }
+        } else {
+            // If dragging from different parent or to different parent
+            destinationIndex = targetIndex + 1  // Insert after target
+        }
+
+        // Perform the move
+        viewModel.moveTechnique(
+            draggedTechnique,
+            to: destinationIndex,
+            newParentID: technique.parentID
+        )
+
+        // Clear the dragged technique
+        self.draggedTechnique = nil
+
+        return true
+    }
+
+    func dropEntered(info: DropInfo) {
+        // Visual feedback handled automatically by SwiftUI
+    }
+
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: validateDrop(info: info) ? .move : .forbidden)
+    }
+}
+
+// MARK: - Child Drop Delegate (for dropping as child)
+
+struct TechniqueChildDropDelegate: DropDelegate {
+    let parentTechnique: Technique
+    let viewModel: TechniqueViewModel
+    @Binding var draggedTechnique: Technique?
+    let currentMode: BJJMode
+    let insertAtBeginning: Bool
+
+    func validateDrop(info: DropInfo) -> Bool {
+        // Don't allow drops in Combined mode
+        guard currentMode != .combined else { return false }
+
+        // Make sure we have a dragged technique
+        guard let draggedTechnique = draggedTechnique else { return false }
+
+        // Don't drop onto itself
+        guard draggedTechnique.id != parentTechnique.id else { return false }
+
+        // Validate using viewModel's validation (check for cycles)
+        return viewModel.canDropTechnique(draggedTechnique, onParent: parentTechnique.id)
+    }
+
+    func performDrop(info: DropInfo) -> Bool {
+        guard let draggedTechnique = draggedTechnique else { return false }
+        guard currentMode != .combined else { return false }
+        guard validateDrop(info: info) else { return false }
+
+        // Make the dragged technique a child of the parent
+        let children = viewModel.fetchChildren(of: parentTechnique.id)
+        let destinationIndex = insertAtBeginning ? 0 : children.count
+
+        // Perform the move
+        viewModel.moveTechnique(
+            draggedTechnique,
+            to: destinationIndex,
+            newParentID: parentTechnique.id
+        )
+
+        // Expand the parent to show the new child
+        viewModel.expandedNodes.insert(parentTechnique.id)
+
+        // Clear the dragged technique
+        self.draggedTechnique = nil
+
+        return true
+    }
+
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: validateDrop(info: info) ? .move : .forbidden)
     }
 }

@@ -307,6 +307,90 @@ class TechniqueViewModel {
         return allCombined.filter { $0.parentID == parentID }
     }
 
+    // MARK: - Drag and Drop
+
+    /// Moves a technique to a new position (reorder) or to a different parent (move between groups)
+    func moveTechnique(_ technique: Technique, to destinationIndex: Int, newParentID: UUID?) {
+        // Get the technique's mode
+        let bjjMode = BJJMode(rawValue: technique.mode) ?? .gi
+        let oldParentID = technique.parentID
+
+        // Update parentID if moving to different parent
+        if oldParentID != newParentID {
+            technique.parentID = newParentID
+
+            // Reorder old siblings (close the gap)
+            let oldSiblings = oldParentID == nil ?
+                fetchRootTechniques(for: bjjMode) :
+                fetchChildren(of: oldParentID!, for: bjjMode)
+
+            var sortOrder = 0
+            for sibling in oldSiblings where sibling.id != technique.id {
+                sibling.sortOrder = sortOrder
+                sortOrder += 1
+            }
+        }
+
+        // Get new siblings and reorder them
+        let newSiblings = newParentID == nil ?
+            fetchRootTechniques(for: bjjMode) :
+            fetchChildren(of: newParentID!, for: bjjMode)
+
+        // Filter out the technique being moved to get actual siblings
+        let actualSiblings = newSiblings.filter { $0.id != technique.id }
+
+        // Insert at destination index
+        var sortOrder = 0
+        let actualDestinationIndex = min(destinationIndex, actualSiblings.count)
+
+        for (index, sibling) in actualSiblings.enumerated() {
+            if index == actualDestinationIndex {
+                technique.sortOrder = sortOrder
+                sortOrder += 1
+            }
+            sibling.sortOrder = sortOrder
+            sortOrder += 1
+        }
+
+        // If destination is at the end
+        if actualDestinationIndex >= actualSiblings.count {
+            technique.sortOrder = sortOrder
+        }
+
+        try? modelContext.save()
+    }
+
+    /// Validates if a drop operation is allowed
+    func canDropTechnique(_ technique: Technique, onParent parentID: UUID?) -> Bool {
+        // Can't drop a technique onto itself
+        if technique.id == parentID {
+            return false
+        }
+
+        // Can't drop a technique onto one of its descendants (would create cycle)
+        if let parentID = parentID {
+            var currentParent: UUID? = parentID
+            while let parent = currentParent {
+                if parent == technique.id {
+                    return false // Would create a cycle
+                }
+                // Find the parent technique and check its parent
+                let parentTechnique = fetchTechnique(byID: parent)
+                currentParent = parentTechnique?.parentID
+            }
+        }
+
+        return true
+    }
+
+    /// Fetches a single technique by ID
+    private func fetchTechnique(byID id: UUID) -> Technique? {
+        let descriptor = FetchDescriptor<Technique>(
+            predicate: #Predicate { $0.id == id }
+        )
+        return try? modelContext.fetch(descriptor).first
+    }
+
     // MARK: - Expand/Collapse
 
     func toggleExpanded(_ id: UUID) {
